@@ -1,6 +1,17 @@
 import random
 import time
+import json
 from datetime import datetime
+import redis
+
+# Redis Cloud connection (replace with your credentials)
+r = redis.Redis(
+    host='redis-16499.c284.us-east1-2.gce.redns.redis-cloud.com',
+    port=16499,
+    password='WcbZdb1D88FovliZTCSPcB2GPJZ9owqD',
+    ssl=False  # <--- Must be False since you're using redis://
+)
+
 
 # List of locations
 LOCATIONS = ["Downtown", "Industrial Zone", "Residential Area", "Airport"]
@@ -56,12 +67,21 @@ def generate_data_for_city(city):
         "alert": alert
     }
 
+# def main():
+#     while True:
+#         for city in LOCATIONS:
+#             data_point = generate_data_for_city(city)
+#             print(data_point)  # Replace with Redis push later
+#         time.sleep(10)  # simulate every 10 seconds (or use 60 for real minute)
+
 def main():
     while True:
         for city in LOCATIONS:
             data_point = generate_data_for_city(city)
-            print(data_point)  # Replace with Redis push later
-        time.sleep(10)  # simulate every 10 seconds (or use 60 for real minute)
+            redis_key = f"aqi:{city.replace(' ', '_').lower()}"
+            r.set(redis_key, json.dumps(data_point))  # Simple JSON storage
+            print(f"Pushed -> {redis_key}: {data_point}")
+        time.sleep(10)
 
 if __name__ == "__main__":
     main()
