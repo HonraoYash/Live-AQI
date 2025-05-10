@@ -1,7 +1,7 @@
 import random
 import time
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 import redis
 
 # Redis Cloud connection (replace with your credentials)
@@ -43,29 +43,45 @@ def map_aqi_to_status_and_alert(aqi_value):
 def clamp(value, min_val=0, max_val=500):
     return max(min(value, max_val), min_val)
 
-def generate_data_for_city(city):
-    # Drift AQI by ±30
-    last_aqi = city_aqi_state[city]
-    drift = random.randint(-30, 30)
-    new_aqi = clamp(last_aqi + drift)
+# def generate_data_for_city(city):
+#     # Drift AQI by ±30
+#     last_aqi = city_aqi_state[city]
+#     drift = random.randint(-30, 30)
+#     new_aqi = clamp(last_aqi + drift)
 
-    # Update global state
-    city_aqi_state[city] = new_aqi
+#     # Update global state
+#     city_aqi_state[city] = new_aqi
 
-    # Transformations
-    status, alert = map_aqi_to_status_and_alert(new_aqi)
-    temp_f = random.uniform(60, 100)
-    temperature_c = round((temp_f - 32) * 5 / 9, 2)
-    timestamp = datetime.utcnow().isoformat() + "Z"
+#     # Transformations
+#     status, alert = map_aqi_to_status_and_alert(new_aqi)
+#     temp_f = random.uniform(60, 100)
+#     temperature_c = round((temp_f - 32) * 5 / 9, 2)
+#     timestamp = datetime.utcnow().isoformat() + "Z"
 
-    return {
-        "location": city,
-        "timestamp": timestamp,
-        "AQI_value": new_aqi,
-        "status": status,
-        "temperature": temperature_c,
-        "alert": alert
-    }
+#     return {
+#         "location": city,
+#         "timestamp": timestamp,
+#         "AQI_value": new_aqi,
+#         "status": status,
+#         "temperature": temperature_c,
+#         "alert": alert
+#     }
+
+def unix_ms():
+    return int(datetime.now(timezone.utc).timestamp() * 1000)
+
+def push_to_timeseries(city, aqi_value):
+    key = f"aqi:{city.replace(' ', '_').lower()}"
+    timestamp = unix_ms()
+
+    # Check and create key if it doesn't exist
+    if not r.exists(key):
+        r.ts().create(key, labels={"location": city})
+
+    # Add value to time-series
+    r.ts().add(key, timestamp, aqi_value)
+    print(f"[{city}] -> AQI {aqi_value} @ {timestamp}")
+
 
 # def main():
 #     while True:
@@ -77,10 +93,10 @@ def generate_data_for_city(city):
 def main():
     while True:
         for city in LOCATIONS:
-            data_point = generate_data_for_city(city)
-            redis_key = f"aqi:{city.replace(' ', '_').lower()}"
-            r.set(redis_key, json.dumps(data_point))  # Simple JSON storage
-            print(f"Pushed -> {redis_key}: {data_point}")
+            drift = random.randint(-30, 30)
+            new_aqi = clamp(city_aqi_state[city] + drift)
+            city_aqi_state[city] = new_aqi
+            push_to_timeseries(city, new_aqi)
         time.sleep(10)
 
 if __name__ == "__main__":
