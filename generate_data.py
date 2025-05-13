@@ -2,13 +2,13 @@ import random
 import time
 from datetime import datetime, timezone
 import redis
+import os
 
-# Redis Cloud connection
 r = redis.Redis(
-    host='redis-16499.c284.us-east1-2.gce.redns.redis-cloud.com',
-    port=16499,
-    password='WcbZdb1D88FovliZTCSPcB2GPJZ9owqD',
-    ssl=False  # Redis Cloud requires SSL
+    host=os.getenv("REDIS_HOST"),
+    port=int(os.getenv("REDIS_PORT")),
+    password=os.getenv("REDIS_PASSWORD"),
+    ssl=True  # Redis Cloud requires SSL
 )
 
 # List of locations
