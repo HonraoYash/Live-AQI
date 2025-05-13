@@ -1,0 +1,10 @@
+{
+    "build": {
+      "dockerfilePath": "Dockerfile"
+    },
+    "deploy": {
+      "startCommand": null
+    },
+    "plugins": []
+  }
+  
