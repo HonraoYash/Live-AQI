@@ -1,6 +1,6 @@
 The script simulates real-time Air Quality Index data and inserts it into the Redis datastore.
 
-Using the python random library, I generate the AQI values.
+Using the python random library, I generated the AQI values.
 
 For each of 4 locations:
 - `"Downtown"`
@@ -8,7 +8,7 @@ For each of 4 locations:
 - `"Residential Area"`
 - `"Airport"`
 
-The script generates:
+The script generates the following fields:
 - `AQI_value` – a realistic air quality reading (int: 0–500)
 - `timestamp` – the current UTC time in milliseconds
 - `status` – a human-readable category (e.g., "Good", "Unhealthy")
@@ -28,7 +28,7 @@ The script generates:
 
 ---
 
-## 🔐 Environment Variables Used
+## Environment Variables Used
 
 All Redis connection settings are stored securely using environment variables:
 - `REDIS_HOST`
@@ -39,14 +39,14 @@ These are loaded at runtime and injected in production (via Railway or `.env` lo
 
 ---
 
-## 🔁 Data Ingestion Frequency
+## Data Ingestion Frequency
 
 - The script runs continuously
 - Every **10 seconds**, new data is pushed for all 4 locations
 
 ---
 
-## 🧪 Example Output (Console)
+## Example Output (Console)
 
 [Downtown] -> AQI 93 @ 1747130034532
 [Industrial Zone] -> AQI 162 @ 1747130034754

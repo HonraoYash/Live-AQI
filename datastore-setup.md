@@ -1,9 +1,9 @@
 
 I have chosen Redis as the database.
 
-Because on exploring, I found out that Redis is more suitable for time-series like data. And I wanted to cover the bonus point of showing trends over time.
+Because on exploring, I found out that Redis is more suitable for time-series like data. And I wanted to cover the bonus point of showing trends over real-time.
 
-## 🏗️ Setup Script
+## Setup Script
 
 The Redis key creation and ingestion logic is handled directly in [`data_ingest.py`](./data_ingest.py). For each location, a key is created with:
 
@@ -14,7 +14,7 @@ The Redis key creation and ingestion logic is handled directly in [`data_ingest.
 
 If the key does not exist, it is created dynamically when the script runs.
 
-## 🔒 Credentials Management
+## Credentials Management
 
 Connection details are handled securely via environment variables:
 - `REDIS_HOST`

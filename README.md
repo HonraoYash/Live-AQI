@@ -4,13 +4,13 @@ This project simulates real-time **Air Quality Index (AQI)** data generation for
 
 ---
 
-## 🚀 Live Demo
+## Live Demo
 
-🔗 **Grafana Dashboard**: [View Dashboard](YOUR_PUBLIC_GRAFANA_LINK)
+🔗 **Grafana Dashboard**: [View Dashboard](https://yashhonrao2024.grafana.net/public-dashboards/78aec0ef856848239209fd5293506e7e)
 
 ---
 
-## 📦 Tech Stack
+## Tech Stack
 
 | Layer            | Tech Used                          |
 |------------------|------------------------------------|
@@ -22,7 +22,7 @@ This project simulates real-time **Air Quality Index (AQI)** data generation for
 
 ---
 
-## 🔁 How It Works
+## How It Works
 
 1. A Python script simulates realistic AQI data for:
    - Downtown
@@ -38,7 +38,7 @@ This project simulates real-time **Air Quality Index (AQI)** data generation for
 
 ---
 
-## 📊 Sample Output
+## Sample Output
 
 [Downtown] -> AQI 83 @ 1747123348934
 [Industrial Zone] -> AQI 139 @ 1747123349250
@@ -46,7 +46,7 @@ This project simulates real-time **Air Quality Index (AQI)** data generation for
 [Airport] -> AQI 77 @ 1747123349448
 
 
-## 🧭 Architecture Diagram
+## Architecture Diagram
 
 ![Live Real-Time AQI Monitoring Architecture](architecture.png)
 
