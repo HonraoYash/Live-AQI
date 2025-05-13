@@ -8,7 +8,7 @@ This project simulates real-time **Air Quality Index (AQI)** data generation for
 
 🔗 **Grafana Dashboard**: [View Dashboard](https://yashhonrao2024.grafana.net/public-dashboards/78aec0ef856848239209fd5293506e7e)
 
-🎥 **Demo Video**: (click)  
+🎥 **Demo Video**: (click below)  
 [![Watch a 30-second walkthrough](https://img.youtube.com/vi/OMKGk6C-6qs/0.jpg)](https://youtu.be/OMKGk6C-6qs)
 
 
