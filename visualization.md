@@ -41,7 +41,7 @@ Each panel displays:
 
 For offline grading or quick reference, here's a snapshot of the live dashboard:
 
-![AQI Dashboard Screenshot](snapshot.jpeg)
+![AQI Dashboard Screenshot](dashboard.jpeg)
 
 ---
 
