@@ -3,8 +3,8 @@ import time
 from datetime import datetime, timezone
 import redis
 import os
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
 
 r = redis.Redis(
