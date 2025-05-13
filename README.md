@@ -46,6 +46,10 @@ This project simulates real-time **Air Quality Index (AQI)** data generation for
 [Airport] -> AQI 77 @ 1747123349448
 
 
+## 🧭 Architecture Diagram
+
+![Live Real-Time AQI Monitoring Architecture](architecture.png)
+
 
 ---
 
