@@ -67,12 +67,13 @@ This project simulates real-time **Air Quality Index (AQI)** data generation for
 ### 1. Clone and Set Environment Variables
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Live-AQI.git
+git clone https://github.com/HonraoYash/Live-AQI.git
 cd Live-AQI
 
 
 Create a .env file:
 
+Create account on Redis and use the RedisTimeSeries
 
 REDIS_HOST=your-redis-host
 REDIS_PORT=your-port
