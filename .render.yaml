@@ -1,0 +1,6 @@
+services:
+  - type: worker
+    name: aqi-data-generator
+    env: docker
+    plan: free
+    autoDeploy: true
