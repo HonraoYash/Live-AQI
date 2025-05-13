@@ -1,4 +1,4 @@
-The script simulates real-time Air Quality Index data and inserts it into the Redis datastore.
+The data_ingest.py script simulates real-time Air Quality Index data and inserts it into the Redis datastore.
 
 Using the python random library, I generated the AQI values.
 
@@ -15,12 +15,12 @@ The script generates the following fields:
 - `temperature` – simulated ambient temperature in °C
 - `alert` – boolean flag indicating if AQI is in a dangerous zone
 
-### 2. **Applies Transformations**
+### 2. **Applied Transformations**
 - Applies a small ±30 drift to simulate gradual change in AQI
 - Maps AQI to its category + alert level (e.g., AQI 205 → `"Very Unhealthy", alert=True`)
 - Converts Fahrenheit to Celsius for temperature
 
-### 3. **Stores in RedisTimeSeries**
+### 3. **Store in RedisTimeSeries**
 - Creates a time-series key per location (e.g., `aqi:downtown`)
 - Attaches a label (`location="Downtown"`) for Grafana filtering
 - Adds a **2-day retention policy** so old data is automatically deleted
@@ -49,6 +49,9 @@ These are loaded at runtime and injected in production (via Railway or `.env` lo
 ## Example Output (Console)
 
 [Downtown] -> AQI 93 @ 1747130034532
+
 [Industrial Zone] -> AQI 162 @ 1747130034754
+
 [Residential Area] -> AQI 49 @ 1747130034970
+
 [Airport] -> AQI 75 @ 1747130035191

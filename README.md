@@ -1,12 +1,17 @@
-# 🌍 Live Real-Time AQI Monitoring Dashboard
+# Live Real-Time AQI Monitoring Dashboard
 
 This project simulates real-time **Air Quality Index (AQI)** data generation for four different zones and visualizes the data using **Grafana** dashboards. Built with Python, RedisTimeSeries, Docker, and deployed via **Railway**, it showcases a complete real-time data pipeline.
 
 ---
 
-## Live Demo
+## 📽️ Live Demo
 
 🔗 **Grafana Dashboard**: [View Dashboard](https://yashhonrao2024.grafana.net/public-dashboards/78aec0ef856848239209fd5293506e7e)
+
+🎥 **Demo Video**: [![Watch a 30 second walkthrough](https://youtu.be/OMKGk6C-6qs)
+
+
+> I encourage you to check out this short demonstration — it gives a clearer visual of how real-time AQI data updates are streamed, stored, and displayed live on the Grafana dashboard.
 
 ---
 
@@ -41,8 +46,11 @@ This project simulates real-time **Air Quality Index (AQI)** data generation for
 ## Sample Output
 
 [Downtown] -> AQI 83 @ 1747123348934
+
 [Industrial Zone] -> AQI 139 @ 1747123349250
+
 [Residential Area] -> AQI 62 @ 1747123349362
+
 [Airport] -> AQI 77 @ 1747123349448
 
 
