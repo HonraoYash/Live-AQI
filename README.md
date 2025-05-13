@@ -98,12 +98,12 @@ Railway runs the container 24/7 as a background worker
 
 
 📁 Key Files
-File	Description
-generate_data.py	AQI data generator + Redis writer
-Dockerfile	Container config
-requirements.txt	Python dependencies
-.env	(Ignored) Holds Redis credentials
-railway.json	Railway deployment config
+File	                Description
+generate_data.py	    AQI data generator + Redis writer
+Dockerfile	            Container config
+requirements.txt	    Python dependencies
+.env	                (Ignored) Holds Redis credentials
+railway.json	        Railway deployment config
 
 
 🧠 Lessons Learned
