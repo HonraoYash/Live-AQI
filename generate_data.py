@@ -52,12 +52,13 @@ def push_to_timeseries(city, aqi_value):
     key = f"aqi:{city.replace(' ', '_').lower()}"
     timestamp = unix_ms()
 
-    # If the key doesn't exist, create with labels and duplicate policy
+    # If the key doesn't exist, create with labels and 2-day retention
     if not r.exists(key):
         r.ts().create(
             key,
             labels={"location": city},
-            duplicate_policy="last"  # This allows safe upserts
+            retention_msecs=172800000,  # 2 days in milliseconds
+            duplicate_policy="last"
         )
 
     # Add the value to time series
