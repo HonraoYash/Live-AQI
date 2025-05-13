@@ -1,22 +1,20 @@
 import random
 import time
-import json
 from datetime import datetime, timezone
 import redis
 
-# Redis Cloud connection (replace with your credentials)
+# Redis Cloud connection
 r = redis.Redis(
     host='redis-16499.c284.us-east1-2.gce.redns.redis-cloud.com',
     port=16499,
     password='WcbZdb1D88FovliZTCSPcB2GPJZ9owqD',
-    ssl=False  # <--- Must be False since you're using redis://
+    ssl=False  # Redis Cloud requires SSL
 )
-
 
 # List of locations
 LOCATIONS = ["Downtown", "Industrial Zone", "Residential Area", "Airport"]
 
-# Initial AQI values (realistic starting points)
+# Initial AQI values
 city_aqi_state = {
     "Downtown": 60,
     "Industrial Zone": 120,
@@ -24,7 +22,7 @@ city_aqi_state = {
     "Airport": 80
 }
 
-# AQI status thresholds
+# AQI categories
 AQI_CATEGORIES = [
     (0, 50, "Good", False),
     (51, 100, "Moderate", False),
@@ -43,52 +41,25 @@ def map_aqi_to_status_and_alert(aqi_value):
 def clamp(value, min_val=0, max_val=500):
     return max(min(value, max_val), min_val)
 
-# def generate_data_for_city(city):
-#     # Drift AQI by ±30
-#     last_aqi = city_aqi_state[city]
-#     drift = random.randint(-30, 30)
-#     new_aqi = clamp(last_aqi + drift)
-
-#     # Update global state
-#     city_aqi_state[city] = new_aqi
-
-#     # Transformations
-#     status, alert = map_aqi_to_status_and_alert(new_aqi)
-#     temp_f = random.uniform(60, 100)
-#     temperature_c = round((temp_f - 32) * 5 / 9, 2)
-#     timestamp = datetime.utcnow().isoformat() + "Z"
-
-#     return {
-#         "location": city,
-#         "timestamp": timestamp,
-#         "AQI_value": new_aqi,
-#         "status": status,
-#         "temperature": temperature_c,
-#         "alert": alert
-#     }
-
 def unix_ms():
-    return int(datetime.now(timezone.utc).timestamp() * 1000)
+    # Add small jitter to prevent duplicate timestamps
+    return int(datetime.now(timezone.utc).timestamp() * 1000) + random.randint(0, 5)
 
 def push_to_timeseries(city, aqi_value):
     key = f"aqi:{city.replace(' ', '_').lower()}"
     timestamp = unix_ms()
 
-    # Check and create key if it doesn't exist
+    # If the key doesn't exist, create with labels and duplicate policy
     if not r.exists(key):
-        r.ts().create(key, labels={"location": city})
+        r.ts().create(
+            key,
+            labels={"location": city},
+            duplicate_policy="last"  # This allows safe upserts
+        )
 
-    # Add value to time-series
+    # Add the value to time series
     r.ts().add(key, timestamp, aqi_value)
     print(f"[{city}] -> AQI {aqi_value} @ {timestamp}")
-
-
-# def main():
-#     while True:
-#         for city in LOCATIONS:
-#             data_point = generate_data_for_city(city)
-#             print(data_point)  # Replace with Redis push later
-#         time.sleep(10)  # simulate every 10 seconds (or use 60 for real minute)
 
 def main():
     while True:
