@@ -5,11 +5,11 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Copy files
-COPY generate_data.py .
+COPY data_ingest.py .
 COPY requirements.txt .
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Run the script
-CMD ["python", "generate_data.py"]
+CMD ["python", "data_ingest.py"]
