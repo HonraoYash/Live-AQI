@@ -1,7 +1,7 @@
 
 I have chosen Redis as the database.
 
-Because on exploring, I found out that Redis is more suitable for time-series like data. And I wanted to cover the bonus point of showing trends over real-time.
+Because on exploring, I found out that Redis is more suitable for time-series like data. And I wanted to cover the bonus point of showing trends over real-time. Moreover, storing and accessing data from Redis is more efficient as Redis stores data on RAM instead of HDD, and in Time-series like data (in my case which is updated every 10 seconds) I wanted faster data access.
 
 ## Setup Script
 
